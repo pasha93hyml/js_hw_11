@@ -40,7 +40,6 @@ class Search {
             }
             let len = countries.length;
             if(len > 10) {
-                console.log(countries);
                 this.root.innerHTML = '';
                 const Myerror = error({
                     text: 'Нашло слишком много стран, уточните поиск...'
