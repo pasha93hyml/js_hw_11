@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: lightgray;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+.searchfield {
+  margin: 0;
+  width: 100vw;
+  padding: 15px;
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  font-size: 20px;
+  width: 35vw;
+}
+
+.country__descr{
+  display: flex;
+  justify-content: space-around;
+}
+
+.one__country {
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  margin: 0;
+  padding: 15px;
+}
+
+.country__descr li {
+  
+}
