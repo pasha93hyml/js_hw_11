@@ -5,7 +5,7 @@ import '@pnotify/core/dist/Material.css';
 import templateCountries from '../templates/countries.hbs'
 import templateCountry from '../templates/country.hbs'
 
-class Search {
+export default class Search {
     constructor({input, countriesData, root}, URL) {
         this.input = input;
         this.countriesData = countriesData;
@@ -29,38 +29,38 @@ class Search {
 
     fetchDataFromInput = (value) => {
         return fetch(this.URL + value)
-        .then(res => {
-            return res.json()
-        })
-        .then(countries => {
-            if (countries.status === 404) {
-                const Myerror = error({
-                    text: 'Ничего не нашлось по вашему запросу'
-                })
-            }
-            let len = countries.length;
-            if(len > 10) {
-                this.root.innerHTML = '';
-                const Myerror = error({
-                    text: 'Нашло слишком много стран, уточните поиск...'
-                })
-                return;
-            }
-            if(len > 1 && len < 10) {
-                const markup = templateCountries(countries)
-                this.countriesData.innerHTML = markup;
-            }
-            if(len === 1) {
-                this.root.innerHTML = '';
-                const markup = templateCountry(countries)
-                this.root.innerHTML = markup;
-            }
-        }).catch(err => {
+        .then(res => res.json())
+        .then(this.renderMarkup).catch(err => {
             const myErr = error({
                 text: `${err}`
             })
         });
     }
-}
 
-export default Search;
+    renderMarkup = countries => {
+        console.log(countries);
+        if (countries.status === 404) {
+            const Myerror = error({
+                text: 'Ничего не нашлось по вашему запросу (404)'
+            })
+        }
+        let len = countries.length;
+        if(len > 10) {
+            this.root.innerHTML = '';
+            const Myerror = error({
+                text: 'Нашло слишком много стран, уточните поиск...'
+            })
+            return;
+        }
+        if(len > 1) {
+            const markup = templateCountries(countries)
+            this.countriesData.innerHTML = markup;
+            return
+        }
+        if(len === 1) {
+            this.root.innerHTML = '';
+            const markup = templateCountry(countries)
+            this.root.innerHTML = markup;
+        }
+    }
+}
